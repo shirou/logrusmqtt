@@ -47,3 +47,25 @@ And the output from MQTT server is,
    
    {"time":"2014-12-25T02:29:54.140874274Z","level":"info","msg":"Info message","data":{}}
    {"time":"2014-12-25T02:29:54.141082554Z","level":"error","msg":"Error Message with fields","data":{"age":42,"name":"joe"}}
+
+Parameters
+--------------
+
+To create MQTTHook, use MQTTHookParams{}.
+
+::
+
+   type MQTTHookParams struct {
+        Hostname   string
+        Port       int
+        Username   string
+        Password   string
+        QoS        int
+        Topic      string
+        Retain     bool
+        ClientId   string
+        CAFilepath string
+        Insecure   bool
+   }
+
+Only Topic and Hostname is required. Other is optional.
