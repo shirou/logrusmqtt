@@ -20,10 +20,10 @@ func main() {
 	}
 	log.Hooks.Add(hook)
 
-	// public to "logrusmqtt/test/info"
+	// publish to "logrusmqtt/test/info"
 	log.Info("Info message")
 
-	// public to "logrusmqtt/test/error"
+	// publish to "logrusmqtt/test/error"
 	log.WithFields(logrus.Fields{
 		"name": "joe",
 		"age":  42,
