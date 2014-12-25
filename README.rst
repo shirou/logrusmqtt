@@ -53,15 +53,15 @@ And the output from MQTT server is,
 Topic
 -------
 
-messages are published to `topic + / + level` topic.
+messages are published to ``topic + / + level`` topic.
 
-If you set topic "logrusmqtt/log" and pass to NewMQTTHook,
+If you set topic ``logrusmqtt/log`` and pass to NewMQTTHook,
 
-- info level log be sent to `logrusmqtt/log/info`
-- error level log will be sent to `logrusmqtt/log/error`
+- info level log be sent to ``logrusmqtt/log/info``
+- error level log will be sent to ``logrusmqtt/log/error``
 
 You can subscribe any specific log level. Or if you want to get any of
-log message, just subscribt `logrusmqtt/log/#`.
+log message, just subscribt ``logrusmqtt/log/#``.
 
 Parameters
 --------------
