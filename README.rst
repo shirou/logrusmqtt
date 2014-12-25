@@ -55,18 +55,18 @@ Topic
 
 messages are published to ``topic + / + level`` topic.
 
-If you set topic ``logrusmqtt/log`` and pass to NewMQTTHook,
+If you set a topic as ``logrusmqtt/log`` and pass to NewMQTTHook,
 
 - info level log be sent to ``logrusmqtt/log/info``
 - error level log will be sent to ``logrusmqtt/log/error``
 
 You can subscribe any specific log level. Or if you want to get any of
-log message, just subscribt ``logrusmqtt/log/#``.
+log message, just subscrib ``logrusmqtt/log/#``.
 
 Parameters
 --------------
 
-To create MQTTHook, use MQTTHookParams{}.
+To create MQTTHook, use MQTTHookParams{} with any MQTT paramerers.
 
 ::
 
@@ -83,4 +83,4 @@ To create MQTTHook, use MQTTHookParams{}.
         Insecure   bool
    }
 
-Only Topic and Hostname is required. Other is optional.
+Only Topic and Hostname are required. Others are optional.
