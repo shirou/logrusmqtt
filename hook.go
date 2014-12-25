@@ -2,6 +2,7 @@ package logrusmqtt
 
 import (
 	"encoding/json"
+	"strings"
 	"time"
 
 	MQTT "git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.golang.git"
@@ -70,9 +71,10 @@ func NewMQTTHook(params MQTTHookParams, level logrus.Level) (*MQTTHook, error) {
 
 // Fire sends mqtt msg.
 func (hook *MQTTHook) Fire(entry *logrus.Entry) error {
+	level := entry.Level.String()
 	msg := MQTTMsg{
 		Time:  entry.Time.UTC(),
-		Level: entry.Level.String(),
+		Level: level,
 		Msg:   entry.Message,
 		Data:  entry.Data,
 	}
@@ -86,7 +88,9 @@ func (hook *MQTTHook) Fire(entry *logrus.Entry) error {
 	mqttmsg.SetQoS(MQTT.QoS(hook.qos))
 	mqttmsg.SetRetainedFlag(hook.retain)
 
-	hook.client.PublishMessage(hook.topic, mqttmsg)
+	topic := strings.Join([]string{hook.topic, level}, "/")
+
+	hook.client.PublishMessage(topic, mqttmsg)
 	// no blocking here
 
 	return nil

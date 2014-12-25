@@ -11,7 +11,7 @@ func main() {
 
 	p := logrusmqtt.MQTTHookParams{
 		Hostname: "test.mosquitto.org",
-		Topic:    "logrusmqtt/test/error",
+		Topic:    "logrusmqtt/test",
 	}
 
 	hook, err := logrusmqtt.NewMQTTHook(p, logrus.DebugLevel)
@@ -20,8 +20,10 @@ func main() {
 	}
 	log.Hooks.Add(hook)
 
+	// public to "logrusmqtt/test/info"
 	log.Info("Info message")
 
+	// public to "logrusmqtt/test/error"
 	log.WithFields(logrus.Fields{
 		"name": "joe",
 		"age":  42,
