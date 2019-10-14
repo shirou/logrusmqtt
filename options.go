@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	MQTT "git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.golang.git"
+	MQTT "github.com/eclipse/paho.mqtt.golang"
 )
 
 const MaxClientIdLen = 8
@@ -45,7 +45,7 @@ func setMQTTOpts(p MQTTHookParams) (*MQTT.ClientOptions, error) {
 	if p.ClientId == "" {
 		p.ClientId = getRandomClientId()
 	}
-	opts.SetClientId(p.ClientId)
+	opts.SetClientID(p.ClientId)
 
 	if p.Username != "" {
 		opts.SetUsername(p.Username)
@@ -68,7 +68,7 @@ func setMQTTOpts(p MQTTHookParams) (*MQTT.ClientOptions, error) {
 	if p.Insecure {
 		tlsConfig.InsecureSkipVerify = true
 	}
-	opts.SetTlsConfig(tlsConfig)
+	opts.SetTLSConfig(tlsConfig)
 
 	brokerUri := fmt.Sprintf("%s://%s:%d", scheme, p.Hostname, p.Port)
 

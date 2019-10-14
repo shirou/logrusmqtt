@@ -5,13 +5,13 @@ import (
 	"strings"
 	"time"
 
-	MQTT "git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.golang.git"
-	"github.com/Sirupsen/logrus"
+	MQTT "github.com/eclipse/paho.mqtt.golang"
+	"github.com/sirupsen/logrus"
 )
 
 // MQTTHook to send logs to the MQTT topic.
 type MQTTHook struct {
-	client *MQTT.MqttClient
+	client MQTT.Client
 	levels []logrus.Level
 	topic  string
 	qos    int
@@ -61,8 +61,7 @@ func NewMQTTHook(params MQTTHookParams, level logrus.Level) (*MQTTHook, error) {
 		retain: params.Retain,
 	}
 
-	_, err = hook.client.Start()
-	if err != nil {
+	if token := hook.client.Connect(); token.Error() != nil {
 		return nil, err
 	}
 
@@ -84,13 +83,9 @@ func (hook *MQTTHook) Fire(entry *logrus.Entry) error {
 		return err
 	}
 
-	mqttmsg := MQTT.NewMessage(payload)
-	mqttmsg.SetQoS(MQTT.QoS(hook.qos))
-	mqttmsg.SetRetainedFlag(hook.retain)
-
 	topic := strings.Join([]string{hook.topic, level}, "/")
 
-	hook.client.PublishMessage(topic, mqttmsg)
+	hook.client.Publish(topic, byte(hook.qos), hook.retain, string(payload))
 	// no blocking here
 
 	return nil
