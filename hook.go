@@ -47,6 +47,7 @@ func NewMQTTHook(params MQTTHookParams, level logrus.Level) (*MQTTHook, error) {
 		logrus.WarnLevel,
 		logrus.InfoLevel,
 		logrus.DebugLevel,
+		logrus.TraceLevel,
 	} {
 		if l <= level {
 			levels = append(levels, l)
