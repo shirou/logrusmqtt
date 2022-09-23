@@ -62,7 +62,7 @@ func NewMQTTHook(params MQTTHookParams, level logrus.Level) (*MQTTHook, error) {
 		retain: params.Retain,
 	}
 
-	if token := hook.client.Connect(); token.Error() != nil {
+	if token := hook.client.Connect(); token.Wait() && token.Error() != nil {
 		return nil, err
 	}
 
